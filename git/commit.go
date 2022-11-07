@@ -19,14 +19,15 @@ func (cm *Commit) Handle(args []string) error {
 }
 
 func (cm *Commit) Exec() error {
-	commands := []string{
-		"git add .",
-		`git commit -m"` + cm.remark + `"`,
-		"git push",
+	commands := [][]string{
+		{"git", "add", "."},
+		{"git", "commit", "-m", cm.remark},
+		{"git", "push"},
 	}
 	for _, cmdStr := range commands {
-		cmd := exec.Command(cmdStr)
+		cmd := exec.Command(cmdStr[0], cmdStr[1:]...)
 		outByte, err := cmd.Output()
+		fmt.Println("err:", err)
 		if err != nil {
 			return err
 		}

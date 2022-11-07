@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"os"
 	"terminal-tools/git"
 )
 
@@ -14,7 +15,8 @@ func init() {
 	}
 }
 
-func Handle(args []string) {
+func Handle() {
+	args := os.Args
 	if len(args) < 2 {
 		printlnErr("what are you doing")
 		return
