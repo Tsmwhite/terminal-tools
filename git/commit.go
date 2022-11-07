@@ -27,7 +27,6 @@ func (cm *Commit) Exec() error {
 	for _, cmdStr := range commands {
 		cmd := exec.Command(cmdStr[0], cmdStr[1:]...)
 		outByte, err := cmd.Output()
-		fmt.Println("err:", err)
 		if err != nil {
 			return err
 		}
