@@ -40,7 +40,9 @@ func (cm *Commit) Exec() error {
 		if err != nil {
 			return err
 		}
-		fmt.Println(string(outByte))
+		if len(outByte) > 0 {
+			fmt.Println(string(outByte))
+		}
 	}
 	return nil
 }
