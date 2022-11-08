@@ -25,6 +25,7 @@ func CommandsRun(commands [][]string) error {
 			return err
 		}
 	}
+	fmt.Println("\n", "ok")
 	return nil
 }
 
