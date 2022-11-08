@@ -14,11 +14,11 @@ var cmdShortMap map[string]string
 func init() {
 	cmdMap = map[string]cmd.Cmder{
 		"git-commit-push": new(git.Commit),
-		"git-new-branch-by-master": new(git.Commit),
+		"git-new-branch-by-master": new(git.Branch),
 	}
 	cmdShortMap = map[string]string{
 		"gcp": "git-commit-push",
-		"gnb": "git-new-branch-by-master",
+		"gcb": "git-new-branch-by-master",
 	}
 }
 
