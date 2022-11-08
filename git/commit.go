@@ -35,13 +35,18 @@ func (cm *Commit) Exec() error {
 		{"git", "pull"},
 		{"git", "push"},
 	}
-	for _, cmdStr := range commands {
-		cmd := exec.Command(cmdStr[0], cmdStr[1:]...)
+	for _, cmdStrs := range commands {
+		cmd := exec.Command(cmdStrs[0], cmdStrs[1:]...)
 		outByte, err := cmd.Output()
 		if err != nil {
 			return err
 		}
-		fmt.Println(strings.Join(cmdStr, " "), ":", string(outByte))
+		cmdStr := strings.Join(cmdStrs, " ")
+		if len(outByte) > 0 {
+			fmt.Println(cmdStr, "\n", string(outByte))
+		} else {
+			fmt.Println(cmdStr)
+		}
 	}
 	return nil
 }
