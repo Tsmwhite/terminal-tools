@@ -25,7 +25,7 @@ func CommandsRun(commands [][]string) error {
 			return err
 		}
 	}
-	fmt.Println("\n", "ok")
+	fmt.Println("ok")
 	return nil
 }
 
@@ -37,7 +37,7 @@ func CommandRun(cmdStrings []string) error {
 		return err
 	}
 	if len(outByte) > 0 {
-		fmt.Println("\n", string(outByte))
+		fmt.Println(string(outByte))
 	}
 	return nil
 }
