@@ -1,17 +1,18 @@
-package cmd
+package load
 
 import (
 	"fmt"
 	"github.com/fatih/color"
 	"os"
+	"terminal-tools/cmd"
 	"terminal-tools/git"
 )
 
-var cmdMap map[string]Cmder
+var cmdMap map[string]cmd.Cmder
 var cmdShortMap map[string]string
 
 func init() {
-	cmdMap = map[string]Cmder{
+	cmdMap = map[string]cmd.Cmder{
 		"git-commit-push": new(git.Commit),
 	}
 	cmdShortMap = map[string]string{

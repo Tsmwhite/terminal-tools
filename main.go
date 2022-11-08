@@ -1,7 +1,9 @@
 package main
 
-import "terminal-tools/cmd"
+import (
+	"terminal-tools/load"
+)
 
 func main() {
-	cmd.Handle()
+	load.Handle()
 }

@@ -2,9 +2,7 @@ package git
 
 import (
 	"errors"
-	"fmt"
-	"os/exec"
-	"strings"
+	"terminal-tools/cmd"
 )
 
 /***
@@ -17,6 +15,7 @@ import (
  */
 
 type Commit struct {
+	cmd.Command
 	remark string
 }
 
@@ -25,28 +24,11 @@ func (cm *Commit) Handle(args []string) error {
 		return errors.New("请输入提交备注")
 	}
 	cm.remark = args[0]
-	return nil
-}
-
-func (cm *Commit) Exec() error {
-	commands := [][]string{
+	cm.Commands = [][]string{
 		{"git", "add", "."},
 		{"git", "commit", "-m", cm.remark},
 		{"git", "pull"},
 		{"git", "push"},
 	}
-	for _, cmdStrs := range commands {
-		cmd := exec.Command(cmdStrs[0], cmdStrs[1:]...)
-		outByte, err := cmd.Output()
-		if err != nil {
-			return err
-		}
-		cmdStr := strings.Join(cmdStrs, " ")
-		if len(outByte) > 0 {
-			fmt.Println(cmdStr, "\n", string(outByte))
-		} else {
-			fmt.Println(cmdStr)
-		}
-	}
-	return nil
+	return cm.Exec()
 }
