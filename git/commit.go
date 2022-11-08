@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 /***
@@ -40,9 +41,7 @@ func (cm *Commit) Exec() error {
 		if err != nil {
 			return err
 		}
-		if len(outByte) > 0 {
-			fmt.Println(string(outByte))
-		}
+		fmt.Println(strings.Join(cmdStr, " "), ":", string(outByte))
 	}
 	return nil
 }
