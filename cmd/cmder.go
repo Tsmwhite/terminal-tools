@@ -15,7 +15,7 @@ type Command struct {
 	Commands [][]string
 }
 
-func (cmd *Command) Exec() error  {
+func (cmd *Command) Exec() error {
 	return CommandsRun(cmd.Commands)
 }
 
@@ -29,16 +29,14 @@ func CommandsRun(commands [][]string) error {
 }
 
 func CommandRun(cmdStrings []string) error {
+	fmt.Println(strings.Join(cmdStrings, " "))
 	cmd := exec.Command(cmdStrings[0], cmdStrings[1:]...)
 	outByte, err := cmd.Output()
 	if err != nil {
 		return err
 	}
-	cmdStr := strings.Join(cmdStrings, " ")
 	if len(outByte) > 0 {
-		fmt.Println(cmdStr, "\n", string(outByte))
-	} else {
-		fmt.Println(cmdStr)
+		fmt.Println("\n", string(outByte))
 	}
 	return nil
 }
