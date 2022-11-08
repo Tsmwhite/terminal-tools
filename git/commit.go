@@ -30,5 +30,5 @@ func (cm *Commit) Handle(args []string) error {
 		{"git", "pull"},
 		{"git", "push"},
 	}
-	return cm.Exec()
+	return nil
 }
