@@ -8,10 +8,14 @@ import (
 )
 
 var cmdMap map[string]Cmder
+var cmdShortMap map[string]string
 
 func init() {
 	cmdMap = map[string]Cmder{
-		"git-commit": new(git.Commit),
+		"git-commit-push": new(git.Commit),
+	}
+	cmdShortMap = map[string]string{
+		"gcp": "git-commit-push",
 	}
 }
 
@@ -22,6 +26,9 @@ func Handle() {
 		return
 	}
 	key := args[1]
+	if cmdShortMap[key] != "" {
+		key = cmdShortMap[key]
+	}
 	var err error
 	if val, ok := cmdMap[key]; ok {
 		if err = val.Handle(args[2:]); err != nil {

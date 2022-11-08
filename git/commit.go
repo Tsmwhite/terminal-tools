@@ -6,6 +6,15 @@ import (
 	"os/exec"
 )
 
+/***
+ * git 提交后自动push
+ * 命令顺序如下：
+ * git add .
+ * git commit -m"~"
+ * git pull
+ * git push
+ */
+
 type Commit struct {
 	remark string
 }
@@ -22,6 +31,7 @@ func (cm *Commit) Exec() error {
 	commands := [][]string{
 		{"git", "add", "."},
 		{"git", "commit", "-m", cm.remark},
+		{"git", "pull"},
 		{"git", "push"},
 	}
 	for _, cmdStr := range commands {
