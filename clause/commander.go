@@ -10,6 +10,7 @@ import (
 type Cmder interface {
 	Handle(args []string) error
 	Exec() error
+	Print()
 }
 
 type Command struct {
@@ -19,7 +20,7 @@ type Command struct {
 
 func (cmd *Command) Print() {
 	for _, cmdArr := range cmd.Commands {
-		fmt.Println(strings.Join(cmdArr, " "))
+		fmt.Println("  ",strings.Join(cmdArr, " "))
 	}
 }
 

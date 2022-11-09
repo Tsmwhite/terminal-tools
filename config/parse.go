@@ -27,6 +27,7 @@ func loadConfig(configFile string, dest interface{}) error {
 type CommandConfig struct {
 	ShortKey  map[string]string   `yaml:"short-key"`
 	CmdSource map[string][]string `yaml:"cmds"`
+	Examples  map[string]string   `yaml:"examples"`
 	Commands  map[string]*clause.Command
 }
 

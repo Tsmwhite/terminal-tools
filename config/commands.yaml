@@ -12,3 +12,6 @@ cmds:
     - "git pull"
     - "git checkout -b ${branchName}"
     - "git push --set-upstream origin ${branchName}"
+examples:
+  git-commit-push: "tools gcp first-commit"
+  git-new-branch: "tools gcb feature/robin_wechat_20221109"

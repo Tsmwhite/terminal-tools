@@ -10,9 +10,11 @@ import (
 
 var cmdMap map[string]clause.Cmder
 var cmdShortMap map[string]string
+var cmdExamples map[string]string
 
 func init() {
 	cmdConfig := config.LoadCmdConfig()
+	cmdExamples = cmdConfig.Examples
 	cmdMap = make(map[string]clause.Cmder)
 	for key, cmd := range cmdConfig.Commands {
 		cmdMap[key] = cmd
@@ -28,32 +30,51 @@ func init() {
 	//}
 }
 
+func help() {
+	fmt.Println("tools <command>")
+	fmt.Println("Usage:")
+	for key, cmd := range cmdMap {
+		colorPrint(key)
+		fmt.Println("example:", cmdExamples[key])
+		fmt.Println("exec detail:")
+		cmd.Print()
+	}
+	fmt.Println("--------quick-command--------")
+	for short, cmdInfo := range cmdShortMap {
+		colorPrint(short, " -> ", cmdInfo)
+	}
+}
+
 func Handle() {
 	args := os.Args
 	if len(args) < 2 {
-		println("what are you doing")
+		help()
 		return
 	}
 	key := args[1]
+	if key == "help" {
+		help()
+		return
+	}
 	if cmdShortMap[key] != "" {
 		key = cmdShortMap[key]
 	}
 	var err error
 	if val, ok := cmdMap[key]; ok {
 		if err = val.Handle(args[2:]); err != nil {
-			println(err)
+			colorPrint(err)
 			return
 		}
 		err = val.Exec()
 		if err != nil {
-			println(err)
+			colorPrint(err)
 			return
 		}
 	}
 }
 
-func println(content interface{}) {
-	_, err := color.New(color.FgRed).Println(content)
+func colorPrint(content ...interface{}) {
+	_, err := color.New(color.FgRed).Println(content...)
 	if err != nil {
 		fmt.Println("error：", err)
 	}
