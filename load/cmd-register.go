@@ -31,7 +31,7 @@ func init() {
 func Handle() {
 	args := os.Args
 	if len(args) < 2 {
-		printlnErr("what are you doing")
+		println("what are you doing")
 		return
 	}
 	key := args[1]
@@ -41,18 +41,18 @@ func Handle() {
 	var err error
 	if val, ok := cmdMap[key]; ok {
 		if err = val.Handle(args[2:]); err != nil {
-			printlnErr(err)
+			println(err)
 			return
 		}
 		err = val.Exec()
 		if err != nil {
-			printlnErr(err)
+			println(err)
 			return
 		}
 	}
 }
 
-func printlnErr(content interface{}) {
+func println(content interface{}) {
 	_, err := color.New(color.FgRed).Println(content)
 	if err != nil {
 		fmt.Println("error：", err)
