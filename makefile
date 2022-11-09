@@ -1,2 +1,2 @@
 mac: ./main.go
-	go build -o cmds ./main.go
+	go build -o bin/tools ./main.go

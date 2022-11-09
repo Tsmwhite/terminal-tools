@@ -4,22 +4,28 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"os"
-	"terminal-tools/cmd"
-	"terminal-tools/git"
+	"terminal-tools/clause"
+	"terminal-tools/config"
 )
 
-var cmdMap map[string]cmd.Cmder
+var cmdMap map[string]clause.Cmder
 var cmdShortMap map[string]string
 
 func init() {
-	cmdMap = map[string]cmd.Cmder{
-		"git-commit-push": new(git.Commit),
-		"git-new-branch-by-master": new(git.Branch),
+	cmdConfig := config.LoadCmdConfig()
+	cmdMap = make(map[string]clause.Cmder)
+	for key, cmd := range cmdConfig.Commands {
+		cmdMap[key] = cmd
 	}
-	cmdShortMap = map[string]string{
-		"gcp": "git-commit-push",
-		"gcb": "git-new-branch-by-master",
-	}
+	cmdShortMap = cmdConfig.ShortKey
+	//cmdMap = map[string]clause.Cmder{
+	//	"git-commit-push":          new(git.Commit),
+	//	"git-new-branch-by-master": new(git.Branch),
+	//}
+	//cmdShortMap = map[string]string{
+	//	"gcp": "git-commit-push",
+	//	"gcb": "git-new-branch-by-master",
+	//}
 }
 
 func Handle() {

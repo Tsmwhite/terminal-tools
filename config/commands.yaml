@@ -1,0 +1,14 @@
+short-key:
+  gcp: "git-commit-push"
+  gcb: "git-new-branch"
+cmds:
+  git-commit-push:
+    - "git add ."
+    - "git commit -m${remark}"
+    - "git pull"
+    - "git push"
+  git-new-branch:
+    - "git checkout master"
+    - "git pull"
+    - "git checkout -b ${branchName}"
+    - "git push --set-upstream origin ${branchName}"

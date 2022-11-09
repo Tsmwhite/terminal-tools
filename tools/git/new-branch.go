@@ -2,7 +2,7 @@ package git
 
 import (
 	"errors"
-	"terminal-tools/cmd"
+	"terminal-tools/clause"
 )
 
 /***
@@ -15,7 +15,7 @@ import (
  */
 
 type Branch struct {
-	cmd.Command
+	clause.Command
 	name string
 }
 
