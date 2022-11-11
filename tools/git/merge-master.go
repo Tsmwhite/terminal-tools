@@ -48,5 +48,5 @@ func (m *mergeMaster) Handle() error {
 	firstLine = strings.ReplaceAll(firstLine, "On branch", "")
 	branchName := strings.Trim(firstLine, " ")
 	m.ArgsMap["${branchName}"] = branchName
-	return nil
+	return m.Command.Handle()
 }

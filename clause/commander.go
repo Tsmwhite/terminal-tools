@@ -42,8 +42,12 @@ func (cmd *Command) Exec() error {
 func (cmd *Command) SetArgsVal(values []string) {
 	cmd.ArgsMap = make(map[string]string)
 	for _, key := range cmd.ArgKeys {
-		cmd.ArgsMap[key] = values[0]
-		values = values[1:]
+		if len(values) > 0 {
+			cmd.ArgsMap[key] = values[0]
+			values = values[1:]
+		} else {
+			return
+		}
 	}
 }
 
