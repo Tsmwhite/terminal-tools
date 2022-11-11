@@ -52,12 +52,16 @@ func (cf *CommandConfig) parse() *CommandConfig {
 			commands = append(commands, strings.Split(cmdStr, " "))
 		}
 		argsMap := make(map[string]string)
+		var uniqueArgs []string
 		for _, arg := range needArgs {
-			argsMap[arg] = ""
+			if argsMap[arg] == "" {
+				argsMap[arg] = "ok"
+				uniqueArgs = append(uniqueArgs, arg)
+			}
 		}
 		cf.Commands[cmdKey] = &clause.Command{
 			Commands: commands,
-			ArgsMap:  argsMap,
+			ArgKeys: uniqueArgs,
 		}
 	}
 	return cf

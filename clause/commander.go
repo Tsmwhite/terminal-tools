@@ -8,36 +8,28 @@ import (
 )
 
 type Cmder interface {
-	Handle(args []string) error
+	Handle() error
 	Exec() error
+	SetArgsVal([]string)
 	Print()
 }
 
 type Command struct {
 	Commands [][]string
+	ArgKeys  []string
 	ArgsMap  map[string]string
 }
 
-func (cmd *Command) Print() {
-	for _, cmdArr := range cmd.Commands {
-		fmt.Println("  ",strings.Join(cmdArr, " "))
-	}
-}
-
-func (cmd *Command) Handle(args []string) error {
-	if len(cmd.ArgsMap) > 0 {
-		for argKey, _ := range cmd.ArgsMap {
-			if len(args) < 1 {
-				cmd.Print()
-				return errors.New("缺少必要参数-" + argKey)
-			}
-			cmd.ArgsMap[argKey] = args[0]
-			args = args[1:]
-			for index, cmdArr := range cmd.Commands {
-				cmdStr := strings.Join(cmdArr, " ")
-				cmdStr = strings.ReplaceAll(cmdStr, argKey, cmd.ArgsMap[argKey])
-				cmd.Commands[index] = strings.Split(cmdStr, " ")
-			}
+func (cmd *Command) Handle() error {
+	for _, argKey := range cmd.ArgKeys {
+		if cmd.ArgsMap[argKey] == "" {
+			cmd.Print()
+			return errors.New("缺少必要参数-" + argKey)
+		}
+		for index, cmdArr := range cmd.Commands {
+			cmdStr := strings.Join(cmdArr, " ")
+			cmdStr = strings.ReplaceAll(cmdStr, argKey, cmd.ArgsMap[argKey])
+			cmd.Commands[index] = strings.Split(cmdStr, " ")
 		}
 	}
 	return nil
@@ -45,6 +37,20 @@ func (cmd *Command) Handle(args []string) error {
 
 func (cmd *Command) Exec() error {
 	return CommandsRun(cmd.Commands)
+}
+
+func (cmd *Command) SetArgsVal(values []string) {
+	cmd.ArgsMap = make(map[string]string)
+	for _, key := range cmd.ArgKeys {
+		cmd.ArgsMap[key] = values[0]
+		values = values[1:]
+	}
+}
+
+func (cmd *Command) Print() {
+	for _, cmdArr := range cmd.Commands {
+		fmt.Println("  ", strings.Join(cmdArr, " "))
+	}
 }
 
 func CommandsRun(commands [][]string) error {

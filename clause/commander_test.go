@@ -14,8 +14,9 @@ func TestCommand_Handle(t *testing.T) {
 				{"git", "pull"},
 				{"git", "push"},
 			},
+			ArgKeys: []string{"${remark}"},
 			ArgsMap: map[string]string{
-				"${remark}": "",
+				"${remark}": "First Commit By Test",
 			},
 		},
 		{
@@ -25,27 +26,24 @@ func TestCommand_Handle(t *testing.T) {
 				{"git", "checkout", "-b", "${name}"},
 				{"git", "push", "--set-upstream", "origin", "${name}"},
 			},
+			ArgKeys: []string{"${name}"},
 			ArgsMap: map[string]string{
-				"${name}": "",
+				"${name}": "hotfix/robin_testBranchName_20221109",
 			},
 		},
 		{
 			Commands: [][]string{
 				{"ls", "${option}", "|", "grep", "${search}"},
 			},
+			ArgKeys: []string{"${option}", "${search}"},
 			ArgsMap: map[string]string{
-				"${option}": "",
-				"${search}": "",
+				"${option}": "-a",
+				"${search}": "config.yaml",
 			},
 		},
 	}
-	testArgs := [][]string{
-		{"First Commit By Test"},
-		{"hotfix/robin_testBranchName_20221109"},
-		{"-a", "config.yaml"},
-	}
-	for index, cmd := range tsList {
-		if err := cmd.Handle(testArgs[index]); err != nil {
+	for _, cmd := range tsList {
+		if err := cmd.Handle(); err != nil {
 			t.Fail()
 		} else {
 			fmt.Println(cmd)
