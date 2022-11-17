@@ -47,6 +47,8 @@ func Handle() {
 			colorPrint(err)
 			return
 		}
+	} else {
+		colorPrint("'"+key+"' is not command. See help")
 	}
 }
 
