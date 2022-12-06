@@ -19,6 +19,7 @@ cmds:
     - "git pull"
     - "git checkout ${currentBranch}"
     - "git merge master"
+    - "git push"
 examples:
   git-commit-push: "tools gcp first-commit"
   git-new-branch: "tools gcb feature/robin_wechat_20221109"
