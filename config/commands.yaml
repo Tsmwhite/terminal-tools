@@ -5,7 +5,7 @@ short-key:
 cmds:
   git-commit-push:
     - "git add ."
-    - "git commit -m${remark}"
+    - "git commit -m'${remark}'"
     - "git pull"
     - "git push"
   git-new-branch:
