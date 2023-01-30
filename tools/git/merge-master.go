@@ -29,6 +29,7 @@ func NewMergeMaster() *mergeMaster {
 				{"git", "pull"},
 				{"git", "checkout", "${branchName}"},
 				{"git", "merge", "master"},
+				{"git", "push"},
 			},
 			ArgKeys: []string{
 				"${branchName}",
