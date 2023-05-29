@@ -10,7 +10,7 @@ import (
 	"terminal-tools/clause"
 )
 
-const cmdConfigFile = "/Go/Run/src/terminal-tools/config/commands.yaml"
+const cmdConfigFile = "/usr/local/var/Go/terminal-tools/config/commands.yaml"
 const searchCmdArgPattern = `\${\w*}`
 
 func loadConfig(configFile string, dest interface{}) error {
